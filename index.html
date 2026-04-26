@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NH&BE Mini App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="phone">
+    <header class="tg-header">
+      <button class="tg-close" aria-label="Закрыть">×</button>
+      <div class="tg-title">
+        <img src="assets/logo.svg" alt="NH&BE" />
+        <span>NH BE SMR BOT</span>
+      </div>
+      <button class="tg-more" aria-label="Меню">•••</button>
+    </header>
+
+    <section class="app" id="app">
+      <div class="page active" id="home-page">
+        <div class="hero-card">
+          <div class="hero-cover"></div>
+          <div class="hero-info">
+            <img class="brand-logo" src="assets/logo.svg" alt="NH&BE" />
+            <div>
+              <h1>Nh&Be | массаж коллаген витамины</h1>
+              <p>Студия заботы о теле и мини-маркет натурального здоровья</p>
+            </div>
+          </div>
+        </div>
+
+        <button class="big-gradient-btn" data-open-services>Записаться</button>
+
+        <div class="empty-visit card dashed-card">
+          <div class="round-icon">📅</div>
+          <h2>У вас пока нет записей</h2>
+          <p>Запишитесь на процедуру прямо сейчас</p>
+          <button class="pill-btn small" data-open-services>Записаться</button>
+        </div>
+
+        <h2 class="section-title">Акции и предложения</h2>
+        <div class="promo-card">
+          <img src="assets/promo.svg" alt="Акция" />
+          <div class="promo-overlay">
+            <span>Подарок новым гостям</span>
+            <strong>500 ₽ на любой массаж</strong>
+          </div>
+        </div>
+
+        <h2 class="section-title">Контакты</h2>
+        <div class="card contacts-card">
+          <a href="tel:+79171183118" class="contact-row">
+            <span class="contact-icon green">📞</span>
+            <span><small>Телефон</small><b>+7 917 118-31-18</b></span>
+            <i>›</i>
+          </a>
+          <a href="#" class="contact-row">
+            <span class="contact-icon pink">📸</span>
+            <span><small>Instagram</small><b>@nh_be_smr</b></span>
+            <i>›</i>
+          </a>
+          <a href="#" class="contact-row">
+            <span class="contact-icon blue">💬</span>
+            <span><small>ВКонтакте</small><b>nh_be_smr</b></span>
+            <i>›</i>
+          </a>
+          <a href="#" class="contact-row">
+            <span class="contact-icon cyan">✈️</span>
+            <span><small>Telegram</small><b>@nh_be_smr</b></span>
+            <i>›</i>
+          </a>
+          <div class="contact-row no-border">
+            <span class="contact-icon beige">🕘</span>
+            <span><small>Режим работы</small><b>Пн–Вс: 10:00 – 20:00</b></span>
+          </div>
+        </div>
+
+        <h2 class="section-title">Твоя активность</h2>
+        <div class="activity-grid">
+          <div class="stat-card"><img src="assets/logo.svg" alt=""><b>0</b><span>Хэбэшек</span></div>
+          <div class="stat-card"><b>0</b><span>Шагов</span></div>
+          <div class="stat-card"><b class="green-text">0</b><span>Процедур</span></div>
+        </div>
+      </div>
+
+      <div class="page" id="market-page">
+        <div class="page-heading row-heading">
+          <div>
+            <h1>Мини-маркет</h1>
+            <p>Nh&Be | массаж · коллаген · витамины</p>
+          </div>
+          <button class="cart-head-btn" data-open-cart>🛒 <span id="cart-head-count">0</span></button>
+        </div>
+
+        <label class="search-box">
+          <span>🔍</span>
+          <input id="search-input" type="search" placeholder="Поиск товаров..." autocomplete="off" />
+        </label>
+
+        <div class="chips" id="market-categories"></div>
+
+        <div class="delivery-banner">🚚 Бесплатная доставка по Самаре от 3 999 ₽</div>
+
+        <div class="product-grid" id="product-grid"></div>
+      </div>
+
+      <div class="page" id="services-page">
+        <div class="page-heading">
+          <h1>Услуги студии</h1>
+          <p>Запишитесь онлайн за 1 минуту</p>
+        </div>
+
+        <div class="chips" id="service-categories"></div>
+        <div class="service-list" id="service-list"></div>
+      </div>
+
+      <div class="page" id="profile-page">
+        <div class="page-heading profile-heading">
+          <h1>Мой профиль</h1>
+        </div>
+
+        <div class="profile-auth dashed-card">
+          <div class="profile-icon">👤</div>
+          <div>
+            <h2>Гостевой режим</h2>
+            <p>Нажмите, чтобы зарегистрироваться</p>
+          </div>
+          <span>›</span>
+        </div>
+
+        <div class="cashback-card card">
+          <div class="cashback-left">
+            <img src="assets/logo.svg" alt="NH&BE" />
+            <b>0</b>
+          </div>
+          <div class="cashback-info">
+            <h2>Базовый минимум</h2>
+            <p>До <b>Второе дыхание</b></p>
+            <div class="progress"><span></span></div>
+            <div class="cashback-actions">
+              <button class="outline-btn">История</button>
+              <button class="pill-btn">Потратить</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="locked-list">
+          <div class="locked-item"><span>💬</span><div><b>Чаты сообщества</b><p>Доступно с уровня 4 «Семья»</p></div><button disabled>🔒 Открыть</button></div>
+          <div class="locked-item"><span>🥗</span><div><b>ИИ-нутрициолог</b><p>Доступно с уровня 3 «Тепло и забота»</p></div><i>🔒</i></div>
+          <div class="locked-item"><span>🏋️</span><div><b>ИИ-Тренер</b><p>Доступно с уровня 3 «Тепло и забота»</p></div><i>🔒</i></div>
+        </div>
+
+        <h2 class="section-title">Мои визиты в студию</h2>
+        <div class="card visit-card">
+          <div class="round-icon">📅</div>
+          <b>Пока нет активных записей</b>
+          <p>Выберите услугу и удобное время</p>
+        </div>
+      </div>
+
+      <div class="page" id="cart-page">
+        <div class="page-heading row-heading">
+          <div>
+            <h1>Корзина</h1>
+            <p>Проверьте товары перед оформлением</p>
+          </div>
+          <button class="clear-btn" id="clear-cart">Очистить</button>
+        </div>
+
+        <div id="cart-content"></div>
+      </div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Главное меню">
+      <button class="nav-btn active" data-page="home-page"><span>🏠</span><small>Главная</small></button>
+      <button class="nav-btn" data-page="market-page"><span>🛒</span><small>Маркет</small><em id="cart-badge">0</em></button>
+      <button class="nav-btn" data-page="services-page"><span>✨</span><small>Услуги</small></button>
+      <button class="nav-btn" data-page="profile-page"><span>👤</span><small>Профиль</small></button>
+    </nav>
+  </main>
+
+  <div class="modal" id="details-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <article class="modal-card">
+      <button class="modal-close" data-close-modal>×</button>
+      <div id="modal-content"></div>
+    </article>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

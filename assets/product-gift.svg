@@ -1,0 +1,10 @@
+<svg width="360" height="360" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="360" height="360" rx="40" fill="#FFFDF9"/>
+  <rect x="74" y="96" width="212" height="150" rx="24" fill="#087C86"/>
+  <rect x="74" y="133" width="212" height="24" fill="#F4D79B"/>
+  <rect x="166" y="96" width="28" height="150" fill="#F4D79B"/>
+  <path d="M180 95C155 67 118 83 141 112C153 127 173 111 180 95Z" fill="#F4D79B"/>
+  <path d="M180 95C205 67 242 83 219 112C207 127 187 111 180 95Z" fill="#F4D79B"/>
+  <text x="180" y="219" text-anchor="middle" font-family="Arial" font-size="26" font-weight="900" fill="white">NH&amp;BE</text>
+  <text x="180" y="247" text-anchor="middle" font-family="Arial" font-size="16" font-weight="800" fill="#F4D79B">GIFT CARD</text>
+</svg>

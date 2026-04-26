@@ -1,0 +1,12 @@
+<svg width="360" height="360" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="360" height="360" rx="40" fill="#FFFDF9"/>
+  <ellipse cx="180" cy="300" rx="78" ry="16" fill="#000" fill-opacity="0.06"/>
+  <rect x="116" y="82" width="128" height="184" rx="22" fill="white" stroke="#E9E9E9" stroke-width="4"/>
+  <rect x="132" y="61" width="96" height="42" rx="13" fill="#F4F4F4" stroke="#E0E0E0" stroke-width="3"/>
+  <rect x="128" y="137" width="104" height="72" rx="10" fill="#F35D70"/>
+  <text x="180" y="164" text-anchor="middle" font-family="Arial" font-size="17" font-weight="900" fill="white">ГИАЛУРОН</text>
+  <text x="180" y="187" text-anchor="middle" font-family="Arial" font-size="16" font-weight="800" fill="white">КИСЛОТА</text>
+  <text x="180" y="228" text-anchor="middle" font-family="Arial" font-size="19" font-weight="900" fill="#F35D70">120 капсул</text>
+  <circle cx="215" cy="230" r="16" fill="#FFE7EC"/>
+  <path d="M210 230h10M215 225v10" stroke="#F35D70" stroke-width="3" stroke-linecap="round"/>
+</svg>

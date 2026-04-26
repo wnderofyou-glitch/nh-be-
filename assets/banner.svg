@@ -1,0 +1,10 @@
+<svg width="900" height="250" viewBox="0 0 900 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="250" fill="#F8F1E4"/>
+  <circle cx="135" cy="95" r="62" fill="#E7F8F4"/>
+  <circle cx="760" cy="65" r="80" fill="#FFE9E2"/>
+  <circle cx="642" cy="205" r="64" fill="#EEF3FF"/>
+  <path d="M40 190C160 106 298 214 421 121C540 31 671 164 860 76" stroke="#087C86" stroke-opacity="0.16" stroke-width="19" stroke-linecap="round"/>
+  <path d="M88 128C166 93 220 118 281 76" stroke="#D8B56D" stroke-opacity="0.36" stroke-width="8" stroke-linecap="round"/>
+  <text x="52" y="65" font-family="Arial, sans-serif" font-size="24" font-weight="900" fill="#087C86">NH&amp;BE</text>
+  <text x="52" y="95" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#8D8B8D">массаж · коллаген · витамины</text>
+</svg>
