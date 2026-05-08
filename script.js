@@ -318,9 +318,9 @@ function renderCart() {
       <h2>Оформление заказа</h2>
       <div class="total-row"><span>Итого</span><b>${formatPrice(total)}</b></div>
       <form class="form-grid" id="checkout-form">
-        <input type="text" placeholder="Ваше имя" required>
-        <input type="tel" placeholder="Телефон" required>
-        <input type="text" placeholder="Адрес доставки или самовывоз">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <input type="text" name="address" placeholder="Адрес доставки или самовывоз">
         <button class="big-gradient-btn" type="submit">Оформить заказ</button>
       </form>
     </section>
@@ -459,16 +459,49 @@ document.getElementById('clear-cart').addEventListener('click', () => {
   renderProducts();
   renderCart();
   showToast('Корзина очищена');
-});
+}); 
+
+function sendOrder(data) {
+  const url = "https://script.google.com/macros/s/AKfycbw1NBj_ApY3Bt2UVMeZFWaXDPpupdihoi_oSNQyKdAf1kCzChSkiB0G5t4Bf9_wxnZN-A/exec"
+    + "?order=" + encodeURIComponent(JSON.stringify(data));
+
+  const img = new Image();
+  img.src = url;
+} 
 
 document.addEventListener('submit', (event) => {
   if (event.target.id === 'checkout-form') {
     event.preventDefault();
+
+    const form = event.target;
+
+    const orderItems = cart.map(item => {
+      const product = products.find(product => product.id === item.id);
+
+      return {
+        title: product?.title || 'Товар',
+        price: product?.price || 0,
+        qty: item.qty
+      };
+    });
+
+    const orderData = {
+      name: form.querySelector('[name="name"]')?.value || '',
+      phone: form.querySelector('[name="phone"]')?.value || '',
+      address: form.querySelector('[name="address"]')?.value || '',
+      comment: '',
+      items: orderItems,
+      total: orderItems.reduce((sum, item) => sum + item.price * item.qty, 0)
+    };
+
+    sendOrder(orderData);
+
     cart = [];
     saveCart();
     renderProducts();
     renderCart();
-    showToast('Заказ успешно оформлен');
+    showToast('Заявка отправлена');
+    form.reset();
   }
 });
 
