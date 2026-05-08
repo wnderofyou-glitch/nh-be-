@@ -462,12 +462,13 @@ document.getElementById('clear-cart').addEventListener('click', () => {
 }); 
 
 function sendOrder(data) {
-  const url = "https://script.google.com/macros/s/AKfycbyo3gaOIMoLUntoAbmE6U1VQ6jwK99d4vznMyo-wLjqbrYByxpi-Pg7F1HdRdL8Gx73EQ/exec"
+  const url = "https://script.google.com/macros/s/AKfycbw1NBj_ApY3Bt2UVMeZFWaXDPpupdihoi_oSNQyKdAf1kCzChSkiB0G5t4Bf9_wxnZN-A/exec"
     + "?order=" + encodeURIComponent(JSON.stringify(data));
 
-  const img = new Image();
-  img.src = url;
-} 
+  console.log("ORDER URL:", url);
+
+  window.open(url, "_blank");
+}
 
 document.addEventListener('submit', (event) => {
   if (event.target.id === 'checkout-form') {
