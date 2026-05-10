@@ -480,7 +480,7 @@ document.getElementById('clear-cart').addEventListener('click', () => {
 }); 
 
 function sendOrder(data) {
-  const url = "https://script.google.com/macros/s/AKfycbyo3gaOIMoLUntoAbmE6U1VQ6jwK99d4vznMyo-wLjqbrYByxpi-Pg7F1HdRdL8Gx73EQ/exec"
+  const url = "https://script.google.com/macros/s/AKfycbyuMCtXBZVHVcpZxrVRiZ86mTS2ErNV0wvg0JOiH1Y4cAYT8T8w7X6V8twNtq-JROjq/exec"
     + "?order=" + encodeURIComponent(JSON.stringify(data));
 
   const img = new Image();
