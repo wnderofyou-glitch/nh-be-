@@ -369,8 +369,26 @@ function closeModal() {
 function bookService(serviceId) {
   const service = services.find(item => item.id === serviceId);
   if (!service) return;
+
+  const orderData = {
+    name: 'Гость',
+    phone: 'Не указан',
+    address: '',
+    comment: `Заявка на услугу: ${service.title}`,
+    items: [
+      {
+        title: service.title,
+        price: service.price,
+        qty: 1
+      }
+    ],
+    total: service.price
+  };
+
+  sendOrder(orderData);
+
   closeModal();
-  showToast(`Заявка на «${service.title}» создана`);
+  showToast('Запись оформлена');
 }
 
 navButtons.forEach(button => {
@@ -462,14 +480,11 @@ document.getElementById('clear-cart').addEventListener('click', () => {
 }); 
 
 function sendOrder(data) {
-  alert("sendOrder вызвался");
-
   const url = "https://script.google.com/macros/s/AKfycbyo3gaOIMoLUntoAbmE6U1VQ6jwK99d4vznMyo-wLjqbrYByxpi-Pg7F1HdRdL8Gx73EQ/exec"
     + "?order=" + encodeURIComponent(JSON.stringify(data));
 
-  alert(url);
-
-  window.open(url, "_blank");
+  const img = new Image();
+  img.src = url;
 }
 
 document.addEventListener('submit', (event) => {
@@ -503,7 +518,7 @@ document.addEventListener('submit', (event) => {
     saveCart();
     renderProducts();
     renderCart();
-    showToast('Заявка отправлена');
+    showToast('Заказ оформлен');
     form.reset();
   }
 });
