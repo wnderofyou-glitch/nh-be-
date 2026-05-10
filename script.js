@@ -462,10 +462,12 @@ document.getElementById('clear-cart').addEventListener('click', () => {
 }); 
 
 function sendOrder(data) {
+  alert("sendOrder вызвался");
+
   const url = "https://script.google.com/macros/s/AKfycbyo3gaOIMoLUntoAbmE6U1VQ6jwK99d4vznMyo-wLjqbrYByxpi-Pg7F1HdRdL8Gx73EQ/exec"
     + "?order=" + encodeURIComponent(JSON.stringify(data));
 
-  console.log("ORDER URL:", url);
+  alert(url);
 
   window.open(url, "_blank");
 }
