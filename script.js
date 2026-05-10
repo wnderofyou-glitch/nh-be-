@@ -462,7 +462,7 @@ document.getElementById('clear-cart').addEventListener('click', () => {
 }); 
 
 function sendOrder(data) {
-  const url = "https://script.google.com/macros/s/AKfycbw1NBj_ApY3Bt2UVMeZFWaXDPpupdihoi_oSNQyKdAf1kCzChSkiB0G5t4Bf9_wxnZN-A/exec"
+  const url = "https://script.google.com/macros/s/AKfycbyo3gaOIMoLUntoAbmE6U1VQ6jwK99d4vznMyo-wLjqbrYByxpi-Pg7F1HdRdL8Gx73EQ/exec"
     + "?order=" + encodeURIComponent(JSON.stringify(data));
 
   console.log("ORDER URL:", url);
