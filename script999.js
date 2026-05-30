@@ -139,6 +139,8 @@ const searchInput = document.getElementById('search-input');
 const modal = document.getElementById('details-modal');
 const modalContent = document.getElementById('modal-content');
 const toast = document.getElementById('toast');
+const phoneShell = document.querySelector('.phone');
+const fullscreenButton = document.querySelector('.tg-more');
 
 function formatPrice(value) {
   return new Intl.NumberFormat('ru-RU').format(value) + ' ₽';
@@ -161,6 +163,60 @@ function showToast(message) {
   toast.classList.add('show');
   clearTimeout(showToast.timer);
   showToast.timer = setTimeout(() => toast.classList.remove('show'), 1700);
+}
+
+function setupFullscreenToggle() {
+  if (!phoneShell || !fullscreenButton) return;
+
+  const getFullscreenElement = () => document.fullscreenElement || document.webkitFullscreenElement;
+  const isTelegramFullscreen = () => Boolean(tg?.isFullscreen);
+  const canUseFullscreen = () => (
+    document.fullscreenEnabled ||
+    document.webkitFullscreenEnabled ||
+    phoneShell.requestFullscreen ||
+    phoneShell.webkitRequestFullscreen ||
+    tg?.requestFullscreen
+  );
+
+  function updateButton() {
+    const isFullscreen = getFullscreenElement() === phoneShell || isTelegramFullscreen();
+    fullscreenButton.textContent = isFullscreen ? '⤢' : '⛶';
+    fullscreenButton.setAttribute('aria-label', isFullscreen ? 'Свернуть' : 'На весь экран');
+    fullscreenButton.title = isFullscreen ? 'Свернуть' : 'На весь экран';
+  }
+
+  fullscreenButton.addEventListener('click', async () => {
+    if (!canUseFullscreen()) {
+      showToast('Полноэкранный режим недоступен');
+      return;
+    }
+
+    try {
+      if (getFullscreenElement()) {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      } else if (isTelegramFullscreen() && tg?.exitFullscreen) {
+        tg.exitFullscreen();
+      } else if (phoneShell.requestFullscreen) {
+        await phoneShell.requestFullscreen();
+      } else if (phoneShell.webkitRequestFullscreen) {
+        phoneShell.webkitRequestFullscreen();
+      } else if (tg?.requestFullscreen) {
+        tg.requestFullscreen();
+      } else {
+        showToast('Полноэкранный режим недоступен');
+      }
+    } catch (error) {
+      showToast('Не удалось открыть на весь экран');
+    }
+  });
+
+  document.addEventListener('fullscreenchange', updateButton);
+  document.addEventListener('webkitfullscreenchange', updateButton);
+  updateButton();
 }
 
 function openPage(pageId) {
@@ -529,3 +585,4 @@ renderServiceCategories();
 renderServices();
 renderCart();
 updateCartCounters();
+setupFullscreenToggle();
