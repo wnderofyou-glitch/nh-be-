@@ -123,6 +123,7 @@ const services = [
 ];
 
 let cart = JSON.parse(localStorage.getItem('nhbeCart') || '[]');
+let visits = JSON.parse(localStorage.getItem('nhbeVisits') || '[]');
 let selectedProductCategory = 'Все';
 let selectedServiceCategory = 'Все';
 
@@ -141,6 +142,9 @@ const modalContent = document.getElementById('modal-content');
 const toast = document.getElementById('toast');
 const phoneShell = document.querySelector('.phone');
 const fullscreenButton = document.querySelector('.tg-more');
+const homeVisits = document.getElementById('home-visits');
+const profileVisits = document.getElementById('profile-visits');
+const bookingTimes = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'];
 
 function formatPrice(value) {
   return new Intl.NumberFormat('ru-RU').format(value) + ' ₽';
@@ -163,6 +167,89 @@ function showToast(message) {
   toast.classList.add('show');
   clearTimeout(showToast.timer);
   showToast.timer = setTimeout(() => toast.classList.remove('show'), 1700);
+}
+
+function getDateInputValue(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function formatVisitDate(value) {
+  const [year, month, day] = value.split('-').map(Number);
+  return new Intl.DateTimeFormat('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(new Date(year, month - 1, day));
+}
+
+function formatVisitBadge(value) {
+  const [year, month, day] = value.split('-').map(Number);
+  return {
+    day: String(day).padStart(2, '0'),
+    month: new Intl.DateTimeFormat('ru-RU', { month: 'short' }).format(new Date(year, month - 1, day)).replace('.', '')
+  };
+}
+
+function saveVisits() {
+  localStorage.setItem('nhbeVisits', JSON.stringify(visits));
+  renderVisits();
+}
+
+function getSortedVisits() {
+  return [...visits].sort((a, b) => `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`));
+}
+
+function renderVisitItem(visit) {
+  const badge = formatVisitBadge(visit.date);
+  return `
+    <article class="visit-item card">
+      <div class="visit-date-badge">
+        <span>${badge.month}</span>
+        <b>${badge.day}</b>
+      </div>
+      <div class="visit-item-info">
+        <small>${formatVisitDate(visit.date)} · ${visit.time}</small>
+        <h3>${visit.title}</h3>
+        <p>${visit.category} · ${visit.duration}</p>
+      </div>
+    </article>
+  `;
+}
+
+function renderEmptyVisits() {
+  return `
+    <div class="card visit-card">
+      <div class="round-icon">📅</div>
+      <b>Пока нет активных записей</b>
+      <p>Выберите услугу и удобное время</p>
+    </div>
+  `;
+}
+
+function renderVisits() {
+  const sortedVisits = getSortedVisits();
+
+  if (profileVisits) {
+    profileVisits.innerHTML = sortedVisits.length
+      ? `<div class="visit-list">${sortedVisits.map(renderVisitItem).join('')}</div>`
+      : renderEmptyVisits();
+  }
+
+  if (homeVisits) {
+    homeVisits.innerHTML = sortedVisits.length
+      ? `<div class="visit-list home-visit-list">${sortedVisits.slice(0, 2).map(renderVisitItem).join('')}</div>`
+      : `
+        <div class="empty-visit card dashed-card">
+          <div class="round-icon">📅</div>
+          <h2>У вас пока нет записей</h2>
+          <p>Запишитесь на процедуру прямо сейчас</p>
+          <button class="pill-btn small" data-open-services>Записаться</button>
+        </div>
+      `;
+  }
 }
 
 function setupFullscreenToggle() {
@@ -422,15 +509,60 @@ function closeModal() {
   modal.setAttribute('aria-hidden', 'true');
 }
 
-function bookService(serviceId) {
+function openBookingModal(serviceId) {
   const service = services.find(item => item.id === serviceId);
   if (!service) return;
+
+  const minDate = getDateInputValue();
+  const timeOptions = bookingTimes.map(time => `<option value="${time}">${time}</option>`).join('');
+
+  modalContent.innerHTML = `
+    <div class="service-icon" style="width: 82px; height: 82px; font-size: 44px; margin-bottom: 16px;">${service.icon}</div>
+    <h2>Запись на услугу</h2>
+    <p>${service.title}</p>
+    <div class="modal-price">${service.price ? formatPrice(service.price) : 'Бесплатно'} · ${service.time}</div>
+    <form class="booking-form" id="booking-form" data-service-id="${service.id}">
+      <label class="field-label">
+        <span>Дата записи</span>
+        <input type="date" name="date" min="${minDate}" value="${minDate}" required>
+      </label>
+      <label class="field-label">
+        <span>Время</span>
+        <select name="time" required>${timeOptions}</select>
+      </label>
+      <div class="modal-actions">
+        <button class="secondary" type="button" data-close-modal>Отмена</button>
+        <button class="primary" type="submit">Записаться</button>
+      </div>
+    </form>
+  `;
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function bookService(serviceId, date, time) {
+  const service = services.find(item => item.id === serviceId);
+  if (!service) return;
+
+  const visit = {
+    id: `${service.id}-${Date.now()}`,
+    serviceId: service.id,
+    title: service.title,
+    category: service.category,
+    duration: service.time,
+    price: service.price,
+    date,
+    time
+  };
+
+  visits.push(visit);
+  saveVisits();
 
   const orderData = {
     name: 'Гость',
     phone: 'Не указан',
     address: '',
-    comment: `Заявка на услугу: ${service.title}`,
+    comment: `Заявка на услугу: ${service.title}. Дата: ${formatVisitDate(date)}, время: ${time}`,
     items: [
       {
         title: service.title,
@@ -444,6 +576,7 @@ function bookService(serviceId) {
   sendOrder(orderData);
 
   closeModal();
+  openPage('profile-page');
   showToast('Запись оформлена');
 }
 
@@ -488,7 +621,7 @@ document.body.addEventListener('click', (event) => {
 
   const bookBtn = event.target.closest('[data-book-service]');
   if (bookBtn) {
-    bookService(bookBtn.dataset.bookService);
+    openBookingModal(bookBtn.dataset.bookService);
     return;
   }
 
@@ -544,6 +677,16 @@ function sendOrder(data) {
 }
 
 document.addEventListener('submit', (event) => {
+  if (event.target.id === 'booking-form') {
+    event.preventDefault();
+
+    const form = event.target;
+    const date = form.querySelector('[name="date"]').value;
+    const time = form.querySelector('[name="time"]').value;
+    bookService(form.dataset.serviceId, date, time);
+    return;
+  }
+
   if (event.target.id === 'checkout-form') {
     event.preventDefault();
 
@@ -584,5 +727,6 @@ renderProducts();
 renderServiceCategories();
 renderServices();
 renderCart();
+renderVisits();
 updateCartCounters();
 setupFullscreenToggle();

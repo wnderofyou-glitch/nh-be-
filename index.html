@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NH&BE Mini App</title>
-  <link rel="stylesheet" href="style.css?v=responsive-fullscreen-5" />
+  <link rel="stylesheet" href="style.css?v=booking-visits-3" />
 </head>
 <body>
   <main class="phone">
@@ -32,12 +32,7 @@
 
         <button class="big-gradient-btn" data-open-services>Записаться</button>
 
-        <div class="empty-visit card dashed-card">
-          <div class="round-icon">📅</div>
-          <h2>У вас пока нет записей</h2>
-          <p>Запишитесь на процедуру прямо сейчас</p>
-          <button class="pill-btn small" data-open-services>Записаться</button>
-        </div>
+        <div class="home-visits" id="home-visits"></div>
 
         
 
@@ -141,11 +136,7 @@
         </div>
 
         <h2 class="section-title">Мои визиты в студию</h2>
-        <div class="card visit-card">
-          <div class="round-icon">📅</div>
-          <b>Пока нет активных записей</b>
-          <p>Выберите услугу и удобное время</p>
-        </div>
+        <div class="visit-content" id="profile-visits"></div>
       </div>
 
       <div class="page" id="cart-page">
@@ -179,6 +170,6 @@
 
   <div class="toast" id="toast"></div>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="script999.js?v=responsive-fullscreen-5"></script>
+  <script src="script999.js?v=booking-visits-3"></script>
 </body>
 </html>
