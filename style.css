@@ -68,14 +68,14 @@ button {
 
 .phone:fullscreen .app,
 .phone:-webkit-full-screen .app {
-  height: calc(100dvh - 70px);
+  height: 100dvh;
 }
 
 .tg-header {
   height: 70px;
   background: #101113;
   color: white;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   padding: 0 18px;
@@ -117,7 +117,7 @@ button {
 }
 
 .app {
-  height: calc(100% - 70px);
+  height: 100%;
   padding-bottom: var(--nav-h);
   overflow: hidden;
 }
@@ -839,6 +839,21 @@ p {
   font-size: 15px;
 }
 
+.cashback-actions .locked-action {
+  min-height: 43px;
+  border-radius: 16px;
+  padding: 0 8px;
+  background: #ecebf0;
+  color: #8f8f97;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: not-allowed;
+}
+
+.cashback-actions .locked-action:disabled {
+  opacity: 1;
+}
+
 .locked-list {
   display: grid;
   gap: 12px;
@@ -1432,14 +1447,14 @@ p {
   }
 
   .app {
-    height: calc(100dvh - 64px);
+    height: 100dvh;
     padding-bottom: 0;
     padding-left: 112px;
   }
 
   .phone:fullscreen .app,
   .phone:-webkit-full-screen .app {
-    height: calc(100dvh - 64px);
+    height: 100dvh;
   }
 
   .page {
@@ -1447,7 +1462,7 @@ p {
   }
 
   .bottom-nav {
-    top: 64px;
+    top: 0;
     right: auto;
     bottom: 0;
     width: 112px;
